@@ -59,20 +59,19 @@ const Pin = ({ pin }) => {
         />
         {postHovered && (
           <div
-            className='absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50'
+            className='absolute top-0 left-0 w-full h-full flex flex-col justify-between p-2 z-50'
             style={{ height: '100%' }}
           >
             <div className='flex items-center justify-between'>
-              <div className='flex gap-2'>
-                <a
-                  href={`${image?.asset?.url}?dl=`}
-                  download
-                  onClick={(e) => e.stopPropagation()}
-                  className='bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none'
-                >
-                  <MdDownloadForOffline />
-                </a>
-              </div>
+              <a
+                href={`${image?.asset?.url}?dl=`}
+                download
+                onClick={(e) => e.stopPropagation()}
+                className='bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none'
+              >
+                <MdDownloadForOffline />
+              </a>
+
               {alreadySaved ? (
                 <button
                   type='button'
@@ -93,13 +92,14 @@ const Pin = ({ pin }) => {
                 </button>
               )}
             </div>
+
             <div className='flex justify-between items-center gap-2 w-full'>
               {destination && (
                 <a
                   href={destination}
                   target='_blank'
                   rel='noreferrer'
-                  className='bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md'
+                  className='bg-white flex items-center gap-2 text-black font-bold px-3 py-2 rounded-full opacity-70 hover:opacity-100 hover:shadow-md'
                 >
                   <BsFillArrowRightCircleFill />
                   {destination.length > 20
@@ -123,6 +123,7 @@ const Pin = ({ pin }) => {
           </div>
         )}
       </div>
+
       <Link
         to={`user-profile/${user?._id}`}
         className='flex gap-2 mt-2 items-center'
