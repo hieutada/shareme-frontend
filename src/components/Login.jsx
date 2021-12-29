@@ -8,10 +8,11 @@ import { client } from '../client';
 
 const Login = () => {
   const navigate = useNavigate();
-  const responseGoogle = (response) => {
-    localStorage.setItem('user', JSON.stringify(response.profileObj));
-    const { name, googleId, imageUrl } = response.profileObj;
-    console.log({ name, googleId, imageUrl })
+  const responseGoogle = async (response) => {
+    const { profileObj } = await response;
+    localStorage.setItem('user', JSON.stringify(profileObj));
+    const { name, googleId, imageUrl } = await profileObj;
+    // console.log({ name, googleId, imageUrl });
     const doc = {
       _id: googleId,
       _type: 'user',
