@@ -8,20 +8,19 @@ import { client } from '../client';
 
 const Login = () => {
   const navigate = useNavigate();
-  const responseGoogle = async (response) => {
-    const { profileObj } = await response;
+  const responseGoogle = (response) => {
+    const { profileObj } = response;
     localStorage.setItem('user', JSON.stringify(profileObj));
-    // const { name, googleId, imageUrl } = await profileObj;
-    console.log(profileObj);
-    // const doc = {
-    //   _id: googleId,
-    //   _type: 'user',
-    //   userName: name,
-    //   image: imageUrl,
-    // };
-    // client.createIfNotExists(doc).then(() => {
-    //   navigate('/', { replace: true });
-    // });
+    const { name, googleId, imageUrl } = profileObj;
+    const doc = {
+      _id: googleId,
+      _type: 'user',
+      userName: name,
+      image: imageUrl,
+    };
+    client.createIfNotExists(doc).then(() => {
+      navigate('/', { replace: true });
+    });
   };
 
   return (
