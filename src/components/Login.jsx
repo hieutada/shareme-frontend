@@ -8,7 +8,6 @@ import { client } from '../client';
 
 const Login = () => {
   const navigate = useNavigate();
-
   const responseGoogle = (res) => {
     localStorage.setItem('user', JSON.stringify(res.profileObj));
     const { name, googleId, imageUrl } = res.profileObj;
@@ -42,7 +41,7 @@ const Login = () => {
 
           <div className='shadow-2xl'>
             <GoogleLogin
-              clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
+              clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
               render={(props) => (
                 <button
                   type='button'
