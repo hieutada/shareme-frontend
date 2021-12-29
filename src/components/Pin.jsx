@@ -13,7 +13,7 @@ const Pin = ({ pin }) => {
   const [postHovered, setPostHovered] = useState(false);
   const user = fetchUser();
   const alreadySaved = !!save?.filter(
-    (item) => item.postedBy._id === user.googleId
+    (item) => item.postedBy._id === user?.googleId
   )?.length;
 
   const savePin = (id) => {

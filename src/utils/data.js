@@ -1,15 +1,15 @@
 export const categories = [
   {
     name: 'cars',
-    image: 'https://i.pinimg.com/750x/eb/47/44/eb4744eaa3b3ccd89749fa3470e2b0de.jpg',
+    image: 'https://i.pinimg.com/564x/63/ee/c0/63eec086a5932081dd75f32e9f1c42c8.jpg',
   },
   {
     name: 'fitness',
-    image: 'https://i.pinimg.com/236x/25/14/29/251429345940a47490cc3d47dfe0a8eb.jpg',
+    image: 'https://i.pinimg.com/564x/60/21/fe/6021fe437f53cabef1bf45a8d9f60c2d.jpg',
   },
   {
     name: 'wallpaper',
-    image: 'https://i.pinimg.com/236x/03/48/b6/0348b65919fcbe1e4f559dc4feb0ee13.jpg',
+    image: 'https://i.pinimg.com/564x/c6/fd/5f/c6fd5f521f3af710cea4659fa41bc4e3.jpg',
   },
   {
     name: 'websites',
@@ -21,18 +21,18 @@ export const categories = [
   },
   {
     name: 'food',
-    image: 'https://i.pinimg.com/236x/7d/ef/15/7def15ac734837346dac01fad598fc87.jpg',
+    image: 'https://i.pinimg.com/564x/d6/df/f0/d6dff03bc5e48070d5280fc1a979ab06.jpg',
   },
   {
     name: 'nature',
-    image: 'https://i.pinimg.com/236x/b9/82/d4/b982d49a1edd984c4faef745fd1f8479.jpg',
+    image: 'https://i.pinimg.com/564x/a7/95/ad/a795ad24787ac56759da2c9b82e47ed3.jpg',
   },
   {
     name: 'art',
     image: 'https://i.pinimg.com/736x/f4/e5/ba/f4e5ba22311039662dd253be33bf5f0e.jpg',
   }, {
     name: 'travel',
-    image: 'https://i.pinimg.com/236x/fa/95/98/fa95986f2c408098531ca7cc78aee3a4.jpg',
+    image: 'https://i.pinimg.com/564x/9b/c9/f3/9bc9f38f5159cdbb8494adacb5a79104.jpg',
   },
   {
     name: 'quotes',
@@ -42,7 +42,7 @@ export const categories = [
     image: 'https://i.pinimg.com/236x/6c/3c/52/6c3c529e8dadc7cffc4fddedd4caabe1.jpg',
   }, {
     name: 'dogs',
-    image: 'https://i.pinimg.com/236x/1b/c8/30/1Furfhe8BFbkEhXn1xcYPr8jYAACNpfV7p.jpg',
+    image: 'https://i.pinimg.com/564x/a6/4e/fd/a64efdf5a4be30ba38fd0190f4a51339.jpg',
   },
   {
     name: 'other',
@@ -155,6 +155,56 @@ export const pinDetailMorePinQuery = (pin) => {
     },
     save[]{
       _key,
+      postedBy->{
+        _id,
+        userName,
+        image
+      },
+    },
+  }`;
+  return query;
+};
+
+export const userCreatedPinsQuery = (userId) => {
+  const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
+    image{
+      asset->{
+        url
+      }
+    },
+    _id,
+    destination,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+    save[]{
+      postedBy->{
+        _id,
+        userName,
+        image
+      },
+    },
+  }`;
+  return query;
+};
+
+export const userSavedPinsQuery = (userId) => {
+  const query = `*[_type == 'pin' && '${userId}' in save[].userId ] | order(_createdAt desc) {
+    image{
+      asset->{
+        url
+      }
+    },
+    _id,
+    destination,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+    save[]{
       postedBy->{
         _id,
         userName,
