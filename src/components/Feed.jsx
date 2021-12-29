@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Masonry from 'react-masonry-css';
 import { useParams } from 'react-router-dom';
 import { client } from '../client';
 import { feedQuery, searchQuery } from '../utils/data';
-import Pin from './Pin';
+import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
-
-const breakpointObj = {
-  default: 4,
-  3000: 6,
-  2000: 5,
-  1200: 3,
-  1000: 2,
-  500: 1,
-};
 
 const Feed = () => {
   const [loading, setLoading] = useState(false);
@@ -40,20 +30,7 @@ const Feed = () => {
   if (loading)
     return <Spinner message='We are adding new ideas to your feed!' />;
 
-  return (
-    <div>
-      {pins && (
-        <Masonry
-          className='flex animate-slide-fwd'
-          breakpointCols={breakpointObj}
-        >
-          {pins?.map((pin) => (
-            <Pin key={pin._id} pin={pin} className='w-max' />
-          ))}
-        </Masonry>
-      )}
-    </div>
-  );
+  return <div>{pins && <MasonryLayout pins={pins} />}</div>;
 };
 
 export default Feed;

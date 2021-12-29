@@ -5,7 +5,7 @@ import { MdDownloadForOffline } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { client, urlFor } from '../client';
-import { fetchUser } from '../utils';
+import { fetchUser, getHostname } from '../utils';
 
 const Pin = ({ pin }) => {
   const { postedBy, image, _id, destination, save } = pin;
@@ -102,9 +102,9 @@ const Pin = ({ pin }) => {
                   className='bg-white flex items-center gap-2 text-black font-bold px-3 py-2 rounded-full opacity-70 hover:opacity-100 hover:shadow-md'
                 >
                   <BsFillArrowRightCircleFill />
-                  {destination.length > 20
-                    ? destination.slice(8, 20)
-                    : destination.slice(8)}
+                  {getHostname(destination).length > 16
+                    ? getHostname(destination).slice(0, 16)
+                    : getHostname(destination)}
                 </a>
               )}
               {postedBy?._id === user.googleId && (
@@ -125,7 +125,7 @@ const Pin = ({ pin }) => {
       </div>
 
       <Link
-        to={`user-profile/${user?._id}`}
+        to={`user-profile/${postedBy?._id}`}
         className='flex gap-2 mt-2 items-center'
       >
         <img
